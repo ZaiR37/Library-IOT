@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>List of Books</title>
+    <style>
+      /* Add some modern styles to the table */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      th {
+        background-color: #4CAF50;
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      /* Add style for the action buttons */
+      .action-buttons {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 8px;
+        margin: 0 8px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>ID Book</th>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Author</th>
+          <th>Publisher</th>
+          <th>Year Published</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% books.forEach(function(book) { %>
+          <tr>
+            <td><%= book.book_id %></td>
+            <td><%= book.title %></td>
+            <td><%= book.category %></td>
+            <td><%= book.author %></td>
+            <td><%= book.publisher %></td>
+            <td><%= book.year_published %></td>
+            <td class="action-buttons">
+                <a href="/edit/<%= book.book_id %>"><button>Edit</button></a>
+                <button onclick="deleteBook('<%= book.book_id %>')">Delete</button>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <script>
+   function deleteBook(id) {
+        fetch('/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: id })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.affectedRows > 0) {
+                console.log('Data Deleted Successfully!');
+                location.reload();
+            } else {
+                console.log('Data Deletion Failed!');
+            }
+        })
+        .catch(err => console.log(err));
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Book Form</title>
+  <style>
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 50%;
+      margin: 0 auto;
+    }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+        text-align: center;
+      }
+
+    body {
+      background-color: #f1f1f1;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .secondary-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+    .secondary-button:hover {
+        background-color: #45a049;
+    }
+
+  </style>
+  </head>
+  <body>
+    
+    <form action="/create" method="post">
+      <button type="button" onclick="getData()" class="secondary-button">Check for Id Card</button>
+      <input type="text" id="book_id" name="book_id" required readonly>
+      <br>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      <br>
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="">Select a category</option>
+        <option value="Fiction">Fiction</option>
+        <option value="Non-Fiction">Non-Fiction</option>
+      </select>
+      <br>
+      <label for="author">Author:</label>
+      <input type="text" id="author" name="author" required>
+      <br>
+      <label for="publisher">Publisher:</label>
+      <input type="text" id="publisher" name="publisher" required>
+      <br>
+      <label for="year_published">Year Published:</label>
+      <input type="text" id="year_published" name="year_published" required>
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+
+    <script>
+      function getData() {
+          fetch('/api/id_card')
+          .then(response => response.json())
+          .then(data => {
+              const bookIdInput = document.getElementById('book_id');
+              bookIdInput.value = data.id;
+          });
+      }
+    </script>
+
+  </body>
+</html>

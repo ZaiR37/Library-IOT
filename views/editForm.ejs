@@ -108,7 +108,7 @@
           const data = { book_id, title, category, author, publisher, year_published };
 
           fetch('/update', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
             },
@@ -117,12 +117,12 @@
           .then(res => res.json())
           .then(data => {
             console.log("test");
-            console.log(data);
-            if(data.status === 'success'){
+            console.log(data.success);
+            if(data.success === true){
               console.log('Data edited Successfully!');
               window.location.href = '/list';
             } else {
-              console.log('Data edited Failed!');
+              console.log('Data edit Failed!');
             }
           })
           .catch(err => console.log(err));

@@ -62,9 +62,9 @@ app.post('/delete', (req, res) => {
     });
 });
 
-app.post('/update', (req, res) => {
+app.put('/update', (req, res) => {
     crud('update', {id: req.body.book_id, changes: req.body}, (result) => {
-        res.json(result);
+        res.json({ success: !!result.affectedRows });
     });
 });
 

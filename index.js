@@ -38,7 +38,9 @@ app.get('/list/:id', (req, res) => {
 })
 
 app.get('/edit/:id', (req, res) => {
-    res.send(`Edit Page data number ${req.params.id}`)
+    crud('read', {id: req.params.id}, (book) => {
+        res.render('editForm', { book });
+    });
 })
 
 app.get('/api/id_card', (req, res) => {
@@ -56,6 +58,12 @@ app.get('/api/id_card', (req, res) => {
 
 app.post('/delete', (req, res) => {
     crud('delete', req.body, (result) => {
+        res.json(result);
+    });
+});
+
+app.post('/update', (req, res) => {
+    crud('update', {id: req.body.book_id, changes: req.body}, (result) => {
         res.json(result);
     });
 });

@@ -87,7 +87,7 @@ module.exports = { crud };
 // });
 
 //Read all the details for spesific data
-// crud('read', { id: 1 }, (books) => {
+// crud('read', { id: 3 }, (books) => {
 //     console.log(books);
 // });
 
@@ -97,8 +97,8 @@ module.exports = { crud };
 //     console.log(titles);
 // });
 
-//Update the data
-// crud('update', { id: 1, changes: { title: 'New Title' } }, (result) => {
+// Update the data
+// crud('update', { id: 5, changes: { title: 'New Title' } }, (result) => {
 //     console.log(result);
 // });
 

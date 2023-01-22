@@ -116,11 +116,13 @@
           })
           .then(res => res.json())
           .then(data => {
+            console.log("test");
+            console.log(data);
             if(data.status === 'success'){
-              console.log('Data Deleted Successfully!');
+              console.log('Data edited Successfully!');
               window.location.href = '/list';
             } else {
-              console.log('Data Deletion Failed!');
+              console.log('Data edited Failed!');
             }
           })
           .catch(err => console.log(err));

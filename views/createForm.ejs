@@ -30,7 +30,7 @@
       background-color: #f1f1f1;
     }
 
-    input[type="submit"] {
+    input[type="submit"], .backButton  {
       width: 100%;
       background-color: #4CAF50;
       color: white;
@@ -41,11 +41,11 @@
       cursor: pointer;
     }
 
-    input[type="submit"]:hover {
+    input[type="submit"]:hover, .backButton:hover  {
       background-color: #45a049;
     }
 
-    .secondary-button {
+    .secondary-button{
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
@@ -55,7 +55,7 @@
     cursor: pointer;
     }
 
-    .secondary-button:hover {
+    .secondary-button:hover{
         background-color: #45a049;
     }
 
@@ -88,7 +88,9 @@
       <input type="text" id="year_published" name="year_published" required>
       <br>
       <input type="submit" value="Submit">
-    </form>
+      <a href="/list"><button type="button" class="backButton">Back to List Page</button></a>
+  </form>
+
 
     <script>
       function getData() {

@@ -28,20 +28,21 @@ function checkID() {
         let timeoutId = setTimeout(() => {
             if (!dataReceived) {
                 port.close();
-                resolve("No Card Detected!");
+                let info = "No Card Detected!";
+                console.log(info);
+                resolve(info);
             }
         }, 10000);
 
         parser.on("data", (line) => {
             dataReceived = true;
-            clearTimeout(timeoutId); // stop the setTimeout
+            clearTimeout(timeoutId);
             port.close();
+            console.log("Id Card detected : " + line);
             resolve(line);
         });
     });
 }
-
 module.exports = { checkID, openPort };
-
 
 // console.log(checkID().then(console.log, console.error));

@@ -18,13 +18,12 @@ app.post('/create', (req, res) => {
     const data = req.body;
     crud('create', data, (result) => {
         console.log('Data Inserted Successfully!');
-        // Redirect the user to the '/list' page
         res.redirect('/list');
     });
 });
 
-app.get('/book/:id', (req, res) => {
-    res.send(`Book Details Page! ${req.params.id}`)
+app.get('/view', (req, res) => {
+    res.render('viewForm')
 })
 
 app.get('/list', (req, res) => {
@@ -43,6 +42,18 @@ app.get('/edit/:id', (req, res) => {
     });
 })
 
+app.post('/delete', (req, res) => {
+    crud('delete', req.body, (result) => {
+        res.json(result);
+    });
+});
+
+app.put('/update', (req, res) => {
+    crud('update', {id: req.body.book_id, changes: req.body}, (result) => {
+        res.json({ success: !!result.affectedRows });
+    });
+});
+
 app.get('/api/id_card', (req, res) => {
     openPort();
     checkID()
@@ -56,15 +67,9 @@ app.get('/api/id_card', (req, res) => {
     });
 });
 
-app.post('/delete', (req, res) => {
-    crud('delete', req.body, (result) => {
-        res.json(result);
-    });
-});
-
-app.put('/update', (req, res) => {
-    crud('update', {id: req.body.book_id, changes: req.body}, (result) => {
-        res.json({ success: !!result.affectedRows });
+app.get('/api/data/:id', (req, res) => {
+    crud('read', { id: req.params.id }, (books) => {
+        res.json(books);
     });
 });
 

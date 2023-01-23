@@ -60,8 +60,12 @@
   <body>
     
     <div class="form">
+      <!-- nanti show Show form sama Hide Form button nya hapus aja -->
+      <button type="button" onclick="showForm('appear')" class="secondary-button">Show Form</button>
+      <button type="button" onclick="showForm('hide')" class="secondary-button">Hide Form</button>
+      <!-- Nanti untuk real case nya show form pakai ini, kalau ketemu id nya bakal di show -->
+      <!-- kalau dalam 10 detik ga ada scan nanti bakal keluar "No Card Detected!" -->
       <button type="button" onclick="getCard()" class="secondary-button">Check for Id Card</button>
-      <!-- <input type="text" id="book_id" name="book_id" required readonly> -->
       <input type="text" id="book_id" name="book_id" readonly>
       <br>
       <div id="hidden-form" style="display: none;">

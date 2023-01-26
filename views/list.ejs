@@ -1,96 +1,53 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>List of Books</title>
-    <style>
-      /* Add some modern styles to the table */
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-      }
+<%- include('templates/header') %>
 
-      th, td {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-      }
+<div class="container mt-4">
+    <div class="d-flex">
+      <h4 class="fw-bold text-color">Book Lists</h4>
+    </div>
 
-      th {
-        background-color: #4CAF50;
-        color: white;
-      }
+    <hr class="border-light mt-0 border-3">
 
-      tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
-      /* Add style for the action buttons */
-      .action-buttons {
-        display: flex;
-        justify-content: flex-end;
-      }
+    <div class="row justify-content-center">
+      <div class="col-lg-2 d-flex flex-column gap-3 mb-4">
+        <a href="/create" class="btn btn-outline-success"><i class="fa-solid fa-plus"></i> Add Book</a>
+        <a href="/view" class="btn btn-outline-primary"><i class="fa-brands fa-nfc-symbol"></i> Scan ID</a>
+      </div>
+      <div class="col-lg-9">
+        <div class="row justify-content-center">
 
-      button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 8px;
-        margin: 0 8px;
-        cursor: pointer;
-      }
+          <% books.forEach(function(book) { %>
+            
+          <div class="col-md-4 mb-4">
+            <div class="card book-card border-primary-subtle shadow-sm">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <% if(book.category == "Fiction") { %>
+                    <h5 class="card-title book-category-fiction"><%= book.category %></h5>
+                  <% } else { %>
+                    <h5 class="card-title book-category-non-fiction"><%= book.category %></h5>
+                  <% } %>
+                  
+                  <span class="badge">ID : <%= book.book_id %></span>
+                </div>
+                <p class="card-text text-color"><%= book.title %></p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item book-list"><i class="fa-solid fa-user-pen"></i> : <%= book.author %></li>
+                <li class="list-group-item book-list"><i class="fa-solid fa-bullhorn"></i> : <%= book.publisher %></li>
+                <li class="list-group-item book-list"><i class="fa-solid fa-calendar-plus"></i> : <%= book.year_published %></li>
+              </ul>
+              <div class="card-body d-flex justify-content-end gap-2">
+                <a href="/edit/<%= book.book_id %>"class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
+                <button onclick="deleteBook('<%= book.book_id %>')" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+          </div>
+          <% }); %>
 
-      button:hover {
-        background-color: #3e8e41;
-      }
-
-      .upper-button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      }
-
-      .upper-button:hover {
-          background-color: #45a049;
-      }
-    </style>
-  </head>
-  <body>
-    <a href="/create"><button class="upper-button">Add Book</button></a>
-    <a href="/view"><button class="upper-button">Scan ID</button></a>
-
-    <table>
-      <thead>
-        <tr>
-          <th>ID Book</th>
-          <th>Title</th>
-          <th>Category</th>
-          <th>Author</th>
-          <th>Publisher</th>
-          <th>Year Published</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% books.forEach(function(book) { %>
-          <tr>
-            <td><%= book.book_id %></td>
-            <td><%= book.title %></td>
-            <td><%= book.category %></td>
-            <td><%= book.author %></td>
-            <td><%= book.publisher %></td>
-            <td><%= book.year_published %></td>
-            <td class="action-buttons">
-                <a href="/edit/<%= book.book_id %>"><button>Edit</button></a>
-                <button onclick="deleteBook('<%= book.book_id %>')">Delete</button>
-            </td>
-          </tr>
-        <% }); %>
-      </tbody>
-    </table>
+        </div>
+      </div>
+    </div>
+    
     <script>
    function deleteBook(id) {
         fetch('/delete', {
@@ -112,5 +69,5 @@
         .catch(err => console.log(err));
     }
     </script>
-  </body>
-</html>
+</div>
+<%- include('templates/footer') %>

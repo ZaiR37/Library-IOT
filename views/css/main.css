@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* ------- customize primary button color -------- */   
+
+
+:root{
+
+    --hue-color: 253;
+
+    --body-color: #00337C;
+    --base-color: hsl(var(--hue-color), 69%, 29%);
+    --base-color-ascent: hsl(var(--hue-color), 69%, 29%);
+    --base-color-alt: hsl(var(--hue-color), 57%, 53%);
+    --base-color-light: hsl(var(--hue-color), 92%, 85%);
+    --title-color: hsl(var(--hue-color), 8%, 15%);
+    --text-color: rgb(173, 181, 189);
+    --text-color-light: hsl(var(--hue-color), 8%, 65%);
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.text-color{
+    color : var(--text-color);
+}
+
+.text-base{
+    color: var(--base-color);
+}
+
+.text-base:hover{
+    color : var(--base-color);
+}
+
+.link-color{
+    color : var(--text-color);
+}
+
+.link-color:hover{
+    color : var(--text-color-light);
+}
+
+.base-color{
+    color: var(--base-color);
+}
+
+.base-bg{
+    background-color: #202225;
+}
+
+.base-bg-alt{
+    background-color: var(--base-color-alt);
+}
+
+.base-bg-ascent{
+    background-color: var(--base-color-ascent);
+}
+
+/* nav */
+.title-icon{
+    transform: rotate(-20deg);
+}
+.ms-n5 {
+    margin-left: -40px;
+}
+
+/* list */
+
+.book-category-fiction,
+.book-category-non-fiction{
+    font-size: 16px;
+}
+
+.book-category-fiction {
+    color: #1C82AD;
+}
+
+.book-category-non-fiction {
+    color: #03C988;
+}
+
+.book-card {
+    color: #00337C;
+    border: none;
+    background-color: #272b2f;
+    transition: 0.3s;
+}
+
+.book-card:hover {
+    box-shadow:  0 0.250rem 0.50rem rgba(173,181,189) !important;
+    transition: 0.3s;
+}
+
+.book-list {
+    background-color: #202327;
+    border: none;
+}

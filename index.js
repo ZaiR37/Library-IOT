@@ -6,6 +6,7 @@ const { crud } = require('./mysql');
 const { checkID, openPort } = require('./cardReader');
 
 app.locals.crud = crud;
+app.use(express.static(__dirname + '/views'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine','ejs');
@@ -27,8 +28,9 @@ app.get('/view', (req, res) => {
 })
 
 app.get('/list', (req, res) => {
+    let title = "Book List";
     crud('read', null, (books) => {
-        res.render('list', { books });
+        res.render('list', {title, books});
     });
 });
 

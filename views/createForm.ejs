@@ -1,107 +1,91 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Book Form</title>
-  <style>
-    form {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      width: 50%;
-      margin: 0 auto;
-    }
+<%- include('templates/header') %>
 
-      input[type="text"],
-      select {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 16px;
-        text-align: center;
-      }
+<div id="overlay" class="d-flex justify-content-center align-items-center gap-3 d-none">
+  <div class="spinner-grow" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <span>Looking For Scan..</span>
+</div>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6 p-4 shadow-sm form-container">
+      <div id="overlay" class="bg-primary z-1 position-absolute">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+          </div>
+        </div>
+      </div>
+      <h3 class="text-center fw-bold">Add Book</h3>
+      <hr class="border-light mt-0 border-3">
+      <form action="/create" method="post" class="form">
 
-    body {
-      background-color: #f1f1f1;
-    }
+        <div class="input-group mb-3">
+          <button id="check" class="btn btn-outline-info border-end-0" style="width:150px" type="button" onclick="getData()">
+            <i class="fa-brands fa-nfc-symbol"></i> Scan Book
+          </button>
+          <input type="text" class="form-control border-info" id="book_id" name="book_id" required readonly>
+        </div>
 
-    input[type="submit"], .backButton  {
-      width: 100%;
-      background-color: #4CAF50;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-primary text-white" style="width:150px" id="basic-addon1">Title</span>
+          <input type="text" class="form-control" placeholder="Input title.." name="title" required>
+        </div>
 
-    input[type="submit"]:hover, .backButton:hover  {
-      background-color: #45a049;
-    }
+        <div class="input-group mb-3">
+          <label class="input-group-text bg-success text-white" style="width:150px" for="inputGroupSelect01">Category</label>
+          <select class="form-select" name="category" required>
+            <option value="" selected disabled>Select a category</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Non-Fiction">Non-Fiction</option>
+          </select>
+        </div>
 
-    .secondary-button{
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    }
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-danger text-white" style="width:150px" id="basic-addon1">Author</span>
+          <input type="text" class="form-control" placeholder="Input author.." name="author" required>
+        </div>
 
-    .secondary-button:hover{
-        background-color: #45a049;
-    }
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-warning text-black" style="width:150px" id="basic-addon1">Publisher</span>
+          <input type="text" class="form-control" placeholder="Input publisher" name="publisher" required>
+        </div>
 
-  </style>
-  </head>
-  <body>
-    
-    <form action="/create" method="post">
-      <button type="button" onclick="getData()" class="secondary-button">Check for Id Card</button>
-      <!-- <input type="text" id="book_id" name="book_id" required readonly> -->
-      <input type="text" id="book_id" name="book_id" required>
-      <br>
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" required>
-      <br>
-      <label for="category">Category:</label>
-      <select id="category" name="category" required>
-        <option value="">Select a category</option>
-        <option value="Fiction">Fiction</option>
-        <option value="Non-Fiction">Non-Fiction</option>
-      </select>
-      <br>
-      <label for="author">Author:</label>
-      <input type="text" id="author" name="author" required>
-      <br>
-      <label for="publisher">Publisher:</label>
-      <input type="text" id="publisher" name="publisher" required>
-      <br>
-      <label for="year_published">Year Published:</label>
-      <input type="text" id="year_published" name="year_published" required>
-      <br>
-      <input type="submit" value="Submit">
-      <a href="/list"><button type="button" class="backButton">Back to List Page</button></a>
-  </form>
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-light text-black" style="width:150px" id="basic-addon1">Year Published</span>
+          <input type="text" class="form-control" placeholder="Input year published" name="year_published" required>
+        </div>
 
+        <div class="d-flex justify-content-end gap-3">
+          <a class="btn btn-outline-warning" href="/list"><i class="fas fa-rotate-left"></i> Back to List Page</a>
+          <button type="submit" class="btn btn-outline-info"><i class="fas fa-plus"></i> Add Book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
     <script>
+      showSpinner("hide");
+
       function getData() {
           fetch('/api/id_card')
           .then(response => response.json())
           .then(data => {
               const bookIdInput = document.getElementById('book_id');
               bookIdInput.value = data.id;
+              bookIdInput.style.background = "none";
           });
+      }
+
+      function showSpinner(status) {
+        if (status == "hide"){
+          document.getElementById("overlay").classList.add("d-none");
+          document.getElementById("check").innerHTML = `<i class="fa-solid fa-brands fa-nfc-symbol"></i> Scan Book`;
+        } else {
+          document.getElementById("overlay").classList.remove("d-none");
+          document.getElementById("check").innerHTML = `<span class="text-info">Loading...</span>`;
+        }
       }
     </script>
 
-  </body>
-</html>
+<%- include('templates/footer') %>

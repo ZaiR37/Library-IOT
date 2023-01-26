@@ -12,7 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine','ejs');
 
 app.get('/create', (req, res) => {
-    res.render('createForm');
+    let title = "Esa Library - Add Book";
+    res.render('createForm', { title });
 })
 
 app.post('/create', (req, res) => {
@@ -24,11 +25,12 @@ app.post('/create', (req, res) => {
 });
 
 app.get('/view', (req, res) => {
-    res.render('viewForm')
+    let title = "Esa Library - View Book";
+    res.render('viewForm', { title })
 })
 
 app.get('/list', (req, res) => {
-    let title = "Book List";
+    let title = "Esa Library - Book List";
     crud('read', null, (books) => {
         res.render('list', {title, books});
     });
@@ -39,8 +41,9 @@ app.get('/list/:id', (req, res) => {
 })
 
 app.get('/edit/:id', (req, res) => {
+    let title = "Esa Library - Edit Book";
     crud('read', {id: req.params.id}, (book) => {
-        res.render('editForm', { book });
+        res.render('editForm', { book, title });
     });
 })
 

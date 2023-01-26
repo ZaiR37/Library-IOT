@@ -67,11 +67,13 @@
       showSpinner("hide");
       
         function getData() {
+          showSpinner("show");
           fetch('/api/id_card')
           .then(response => response.json())
           .then(data => {
-              const bookIdInput = document.getElementById('book_id');
-              bookIdInput.value = data.id;
+            showSpinner("hide");
+            const bookIdInput = document.getElementById('book_id');
+            bookIdInput.value = data.id;
           });
         }
 

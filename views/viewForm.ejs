@@ -23,33 +23,29 @@
           <button id="check" class="btn btn-outline-info border-end-0" style="width:150px" type="button" onclick="getCard()">
             <i class="fa-brands fa-nfc-symbol"></i> Scan Book
           </button>
-          <input type="text" class="form-control border-info" id="book_id" name="book_id" required readonly>
+          <input type="text" class="form-control border-info" id="book_id" name="book_id" readonly>
         </div>
 
         <div id="hidden-form" class="d-none">
           <div class="input-group mb-3">
             <span class="input-group-text bg-primary text-white" style="width:150px" id="basic-addon1">Title</span>
-            <input type="text" class="form-control" placeholder="Input title.." name="title" required>
+            <input type="text" class="form-control" placeholder="Input title.." id="title" name="title" readonly>
           </div>
           <div class="input-group mb-3">
             <label class="input-group-text bg-success text-white" style="width:150px" for="inputGroupSelect01">Category</label>
-            <select class="form-select" name="category" required>
-              <option value="" selected disabled>Select a category</option>
-              <option value="Fiction">Fiction</option>
-              <option value="Non-Fiction">Non-Fiction</option>
-            </select>
+            <input type="text" class="form-control" placeholder="Input category.." id="category" name="category" readonly>
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text bg-danger text-white" style="width:150px" id="basic-addon1">Author</span>
-            <input type="text" class="form-control" placeholder="Input author.." name="author" required>
+            <input type="text" class="form-control" placeholder="Input author.." id="author" name="author" readonly>
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text bg-warning text-black" style="width:150px" id="basic-addon1">Publisher</span>
-            <input type="text" class="form-control" placeholder="Input publisher" name="publisher" required>
+            <input type="text" class="form-control" placeholder="Input publisher" id="publisher" name="publisher" readonly>
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text bg-light text-black" style="width:150px" id="basic-addon1">Year Published</span>
-            <input type="text" class="form-control" placeholder="Input year published" name="year_published" required>
+            <input type="text" class="form-control" placeholder="Input year published" id="year_published" name="year_published" readonly>
           </div>
           <div class="d-flex justify-content-end gap-3">
             <a class="btn btn-outline-warning" href="/list"><i class="fas fa-rotate-left"></i> Back to List Page</a>
@@ -64,11 +60,14 @@
     <script>
 
       showSpinner("hide");
+
       function getCard() {
+        showSpinner("show");
         showForm("hide");
         fetch('/api/id_card')
         .then(response => response.json())
         .then(data => {
+          showSpinner("hide");
           const bookIdInput = document.getElementById('book_id');
           bookIdInput.value = data.id;
           if(data.id > 0){

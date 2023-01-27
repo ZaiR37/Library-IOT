@@ -15,7 +15,7 @@ connection.connect((err) => {
   });
   
 const createTable = `CREATE TABLE IF NOT EXISTS books (
-    book_id INT NOT NULL PRIMARY KEY,
+    book_id VARCHAR(25) NOT NULL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL,

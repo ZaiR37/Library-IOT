@@ -103,6 +103,11 @@ body {
     border: none;
 }
 
+.badge-list {
+    width: 30px;
+    height: 30px;
+}
+
 /* forms */
 #overlay {
     background-color:#202225;
